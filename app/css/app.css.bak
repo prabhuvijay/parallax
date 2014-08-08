@@ -1,0 +1,115 @@
+		html,body {
+			height: 100%;
+			width: 100%;
+			margin: 0px;
+		}
+	.parallax-page {		
+			height: 100%;
+			width: 100%;			
+			//background: white;
+			text-align: center;
+		}
+		body {
+			background: gray;
+			min-width: 700px;
+			min-height: 500px;
+		}
+		.parallax-item .logo {
+			background-image: url("../../resources/slices/logo.png");
+			background-color: rgb(22, 148, 219);
+			height: 30px;
+			width: 150px;
+			background-repeat: no-repeat;
+			background-size: 100px 17px;
+			background-position: center;
+			margin: auto;
+		}
+		.title-text {
+			font-size: 25px;
+			font-style: italic;
+			font-weight: bold;
+			padding: 22px;
+		}
+		.mildblue {
+			color: rgb(22, 148, 219);
+		}
+		.desc-text {
+			margin: auto;
+			font-size: 13px;
+			font-style: italic;
+			margin-bottom: 30px;
+		}
+		.tablet-img {
+			height: 64%;
+		}
+		.tablet-img-slide {
+			//height: 290px;
+
+		}
+		.mobile-img {
+			height: 50%;
+		}
+		.mobile-img-slide {
+			position: absolute;
+			bottom: 0px;
+			right: 3%;
+		}
+		.page2 {
+			background: yellow;
+		}
+		.swiper-container {
+			height: 100%;
+			width: 100%;
+		}
+		.pagination {
+			position: absolute;
+			z-index: 20;
+			left: 10px;
+			top: 10px;
+		}
+		.overlay-mask {
+			position: absolute;
+			height: 100%;
+			width: 100%;
+			top: 0px;
+			left: 0px;
+			background: black;
+			opacity: 0.4;
+			z-index: 3;
+		}
+		.slides-holder {
+			width: 550px;
+			position: relative;
+			margin: auto;
+			height: 460px;
+			z-index:1;
+		}
+		.cloud-img-holder img{
+			position: absolute;
+			width: 100%;
+			height:100%;
+			left: 0px;
+		}
+		.cloud-img-holder{
+			position: relative;
+			height: 30%;
+			z-index:0;
+		}
+		.parallax-page{
+			overflow:hidden;	
+		}
+		.cloud-1-img{
+		top: -16%;	
+		}
+		.cloud-2-img{
+			top: -20%;
+		}
+		.cloud-3-img{
+		top: -10%;
+		}
+		.cloud-4-img{
+			top: 50%;
+		}
+		.globe-img{
+			bottom: 0px;
+		}

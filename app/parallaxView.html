@@ -1,0 +1,588 @@
+<html>
+
+<head>
+
+	
+	
+		<link href='http://fonts.googleapis.com/css?family=Merriweather:400,300italic,700italic' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+	<link href="css/app.css" type="text/css" rel="stylesheet" />
+	<link rel="stylesheet" href="css/animate.css">
+	<link rel="stylesheet" href="css/idangerous.swiper.css">
+
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="js/jquery.lettering-0.6.1.min.js"></script>
+	<script src="js/textillate.js"></script>
+	<script src="js/plax.js"></script>
+	<script src="js/idangerous.swiper.js"></script>
+	<script src="js/idangerous.swiper.plugin.js"></script>
+	<script src="js/app.js" type="application/javascript"></script>
+
+	<script>
+		showConsole = true;
+
+		logme = console.log;
+		console.log = function () {
+			if (showConsole) {
+				logme.call(this, arguments);
+			}
+		}
+
+		function doAnim1(index) {
+			arrItem = ['.man-item', '.women-item', '.kid-item'];
+			arrImg = ['.man-img','.women-img','.kid-img'];
+			arrBubble = ['.bubble-man','.bubble-women','.bubble-kid'];
+			$('img.show-item').removeClass('fadeInDownBig bounceInLeft animated');
+			$('img.show-item.person-img').addClass('fadeOutDownBig animated anim-delay900');
+			$('img.show-item.bubble-img').addClass('bounceOutLeft animated');
+			//$(arrImg[index - 1]).addClass('show-item fadeInDown animated');
+			//$(arrBubble[index - 1]).addClass('show-item bounceInLeft animated');
+			
+			setTimeout(function(){
+				$('img.show-item').removeClass('show-item animated bounceOutLeft fadeOutDownBig');				
+				//$('img.show-item').addClass('show-item fadeInDown bounceInLeft animated');
+				$(arrImg[index - 1]).addClass('show-item fadeInDownBig animated anim-delay900');
+				$(arrBubble[index - 1]).addClass('show-item bounceInLeft animated');
+				$('div.show-item').removeClass('show-item');
+				$(arrItem[index - 1]).addClass('show-item');
+			},400);
+			////console.log('from do anim--', index);
+		}
+		
+		
+		function doAnim(index) {
+			
+			
+			arrItem = ['.man-item', '.women-item', '.kid-item'];
+			arrImg = ['.man-img','.women-img','.kid-img'];
+			arrBubble = ['.bubble-man','.bubble-women','.bubble-kid'];
+			
+			$('img.show-item').removeClass('animated');
+			$('div.show-item').removeClass('show-item');
+			$('img.show-item.person-img').removeClass('anim-delay300 fadeInDownBig').addClass('fadeOutDownBig animated');
+			$('img.show-item.bubble-img').removeClass('anim-delay1200 zoomIn').addClass('zoomOut animated');
+	
+			
+			$(arrImg[index - 1]).removeClass('fadeOutDownBig animated').addClass('show-item fadeInDownBig anim-delay300');
+			$(arrBubble[index - 1]).removeClass('zoomOut animated').addClass('show-item zoomIn animated anim-delay1200');
+			$('div'+arrItem[index - 1]).addClass('show-item');
+			//console.log('from do anim--', index);
+		}
+		pl = {};
+		pl.sameSlideSwipecounter = -1;
+		pl.sameSlideSwipeIndex = 2;
+		pl.sameSlideSwipecounterStarted = false;
+		
+		pl.onSlideSwipe = function (direction) {
+
+			//console.log('---------------------------------------------------------------');
+			//console.log('active --', mySwiper.activeIndex, '--counter', pl.sameSlideSwipecounter);
+
+			if (pl.sameSlideSwipecounterStarted) {
+				if (direction == 'prev') {
+					pl.sameSlideSwipecounter = pl.sameSlideSwipecounter - 1;
+					//console.log('from direction previous on swipe');
+				} else {
+					pl.sameSlideSwipecounter = pl.sameSlideSwipecounter + 1;
+					//console.log('from direction next on swipe');
+
+				}
+				doAnim(pl.sameSlideSwipecounter);
+			}
+
+			if (pl.sameSlideSwipecounterStarted && (pl.sameSlideSwipecounter < 4 && pl.sameSlideSwipecounter >= 0)) {
+				mySwiper.params.stayStill = true;
+
+			} else {
+				pl.sameSlideSwipecounterStarted = false;
+				pl.sameSlideSwipecounter = 0;
+				mySwiper.params.stayStill = false;
+			}
+		};
+
+		function resetSlideElements(index) {
+			//	console.log(index);
+			//	console.log('prev--start' + mySwiper.getSlide(index).id);
+
+			slideId = mySwiper.getSlide(index).id;
+			//console.log('from reset--',slideId);
+
+			var logo = '#' + slideId + ' .logo';
+			var highLightText = '#' + slideId + ' .highlight-txt';
+			var normalText = '#' + slideId + ' .normal-txt';
+			var mobileImage = '#' + slideId + ' .mobile-img';
+			var tabletImage = '#' + slideId + ' .tablet-img';
+			var descText = '#' + slideId + ' .desc-text';
+			var visibleItems = '#' + slideId + ' .visible-change';
+			var parallaxItem = '#' + slideId + ' .parallax-item';
+			var titleText = '#' + slideId + ' .title-text';
+			var bubbleImg =  '#' + slideId + ' .bubble-img';
+			var man_3 = '#' + slideId + ' .man_3';
+			var girl_5 = '#' + slideId + ' .girl_5';
+			var kiosk_5 = '#' + slideId + ' .kiosk_5';
+			var boy_6 = '#' + slideId + ' .boy_6';
+			//console.log(highLightText);
+			$(logo).removeClass('animated flipInX');
+			$(visibleItems).css('opacity', '0.0');
+			//$(titleText).removeClass('animated zoomIn');
+			$(mobileImage).removeClass('animated bounceInDown');
+			$(tabletImage).removeClass('animated bounceInLeft');
+			//$(descText).removeClass('animated lightSpeedIn');
+			$(bubbleImg).removeClass('animated zoomIn');
+			$(man_3).removeClass('animated bounceInRight');
+			$(girl_5).removeClass('animated bounceInRight');
+			$(kiosk_5).removeClass('animated bounceInLeft');
+			$(boy_6).removeClass('animated bounceInRight');
+		};
+
+		function startAnimatingItems(index) {
+
+			//console.log(index);
+			//console.log('active--start' + mySwiper.getSlide(index).id);
+
+			slideId = mySwiper.getSlide(index).id;
+
+			var logo = '#' + slideId + ' .logo';
+			var highLightText = '#' + slideId + ' .highlight-txt';
+			var normalText = '#' + slideId + ' .normal-txt';
+			var mobileImage = '#' + slideId + ' .mobile-img';
+			var tabletImage = '#' + slideId + ' .tablet-img';
+			var descText = '#' + slideId + ' .desc-text';
+			var visibleItems = '#' + slideId + ' .visible-change';
+			var parallaxItem = '#' + slideId + ' .parallax-item';
+			var titleText = '#' + slideId + ' .title-text';
+			var bubbleImg =  '#' + slideId + ' .bubble-img';
+			var man_3 = '#' + slideId + ' .man_3';
+			var girl_5 = '#' + slideId + ' .girl_5';
+			var kiosk_5 = '#' + slideId + ' .kiosk_5';
+			var boy_6 = '#' + slideId + ' .boy_6';
+			
+			$(visibleItems).css('opacity', '1.0');
+			$(logo).addClass('animated flipInX');
+			//$(normalText).textillate('start');
+			//$(highLightText).textillate('start');
+			//$(descText).textillate('in');
+			//$(titleText).addClass('animated zoomIn');
+			$(mobileImage).addClass('animated bounceInDown');
+			$(tabletImage).addClass('animated bounceInLeft');
+			//$(descText).addClass('animated lightSpeedIn');
+			$(bubbleImg).addClass('animated zoomIn');
+			$(man_3).addClass('animated bounceInRight');
+			$(girl_5).addClass('animated bounceInRight');
+			$(kiosk_5).addClass('animated bounceInLeft');
+			$(boy_6).addClass('animated bounceInRight');
+		};
+
+		function slideChangeEnd(swiper, direction) {
+			//console.log('end--', arguments);
+			if (swiper.activeIndex === swiper.previousIndex) {
+				console.log('inside false callback', swiper.activeIndex, '--', swiper.previousIndex);
+				return false;
+			}
+			//console.log('active --', mySwiper.activeIndex, '--counter', pl.sameSlideSwipecounter);
+			if (mySwiper.activeIndex === pl.sameSlideSwipeIndex) {
+				pl.sameSlideSwipecounterStarted = true;
+				mySwiper.params.stayStill = true;
+				//console.log('inside if main');
+				if (direction == 'prev') {
+					pl.sameSlideSwipecounter = 3;
+					//console.log('from direction previous');
+					doAnim(3);
+				} else {
+					pl.sameSlideSwipecounter = 0;
+					//console.log('from direction next');
+				}
+			} else {
+				//console.log('inside else main');
+				pl.sameSlideSwipecounterStarted = false;
+				mySwiper.params.stayStill = false;
+			}
+			//console.log('---------dir', direction);
+
+			startAnimatingItems(swiper.activeIndex);
+			//setTimeout(function(){startAnimatingItems(swiper.activeIndex);},1000);
+			resetSlideElements(swiper.previousIndex);
+		}
+
+		function slideChangeStart(swiper, direction) {
+			showOverlayMask();
+			setTimeout(function () {
+				hideOverlayMask();
+			}, 1000)
+			//resetSlideElements(swiper.activeIndex);
+
+			//changeBg(swiper.activeIndex);
+			//console.log('start--', arguments);
+			//for(i=0;i<1000;i++){  console.log('iterating',i); }
+		}
+
+		function changeBg(index) {
+			//background-color: rgb(228, 190, 108);
+			bgColorObj = ['#e4be6c', '#9c91bf', '#808cae', '#d6cece', 'rgb(229, 255, 229)'];
+			ind = (index) % 4;
+			color = bgColorObj[ind];
+			$('body').css('background-color', color);
+			//console.log('ind--', ind, color);
+		}
+
+		function showOverlayMask() {
+			$('.overlay-mask').show();
+		}
+
+		function hideOverlayMask() {
+			$('.overlay-mask').hide();
+		}
+
+		$(document).ready(function () {
+			$parallaxCont = $('.parallax-cont')
+			mySwiper = $('.swiper-container').swiper({
+				mode: 'vertical',
+				keyboardControl: true,
+				mousewheelControl: true,
+				mousewheelControlForceToAxis: true,
+				createPagination: true,
+				pagination: '.pagination',
+				paginationClickable: true,
+				useCSS3Transforms: true,
+				speed: 1000,
+				longSwipesRatio: 0.6,
+				resistance: '100%',
+				momentumBounce: false,
+				momentumBounceRatio: 0,
+				momentumBounceRatio: 0,
+				onSlideChangeEnd: slideChangeEnd,
+				onSlideChangeStart: slideChangeStart,
+				delay: 87000,
+				followFinger: false,
+				timeout: 00,
+				slidesPerView: 'auto',
+				//progress: true,
+				onProgressChange: function (swiper) {
+					for (var i = 0; i < swiper.slides.length; i++) {
+						var slide = swiper.slides[i];
+						var progress = slide.progress;
+						swiper.setTransform(slide, 'translate3d(0px,0,' + (-Math.abs(progress * 1500)) + 'px)');
+					}
+
+				},
+				onTouchStart: function (swiper) {
+					for (var i = 0; i < swiper.slides.length; i++) {
+						swiper.setTransition(swiper.slides[i], 0);
+					}
+				},
+				onSetWrapperTransition: function (swiper, speed) {
+					for (var i = 0; i < swiper.slides.length; i++) {
+						swiper.setTransition(swiper.slides[i], speed);
+					}
+				}
+			});
+
+			for (var i = 0; i < mySwiper.slides.length; i++) {
+				mySwiper.slides[i].style.zIndex = mySwiper.slides.length - i;
+			}
+
+			$('.visible-change').css('opacity', '0');
+			//$('.man-item').addClass('show-item');
+			startAnimatingItems(0);
+			hideOverlayMask();
+//			$('.desc-text').textillate({ in : {
+//					effect: 'rotateInDownLeft',
+//					delay: 5
+//				}
+//			});
+//			$('.normal-txt').textillate({ in : {
+//					effect: 'fadeIn',
+//					delay: 90
+//				}
+//			});
+//			$('.highlight-txt').textillate({ in : {
+//					effect: 'fadeIn',
+//					delay: 90
+//				}
+//			});
+		});
+	</script>
+
+</head>
+
+<body>
+	<!--
+	<div class="position:absolute;height:3000px;">
+	</div>
+-->
+
+	<style>
+		.man-item,
+		.women-item,
+		.kid-item {
+			display: none;
+		}
+		.show-item {
+			display: block;
+		}
+		.page-3 .bottom-img-holder {} .full-page {
+			position: absolute;
+			/* height: 100%; */
+			left: 0px;
+			/* top: 0px; */
+			bottom: 0px;
+			width: 100%;
+		}
+		
+		.swiper-slide .logo{
+			display: none	
+		}
+		.fixed-item{
+		  	position: fixed;
+			top:0px;
+			left:0px;
+			width:100%;
+			z-index:2;
+		}
+		
+		/*
+		.swiper-container {
+			-webkit-perspective: 1200px;
+			-moz-perspective: 1200px;
+			-ms-perspective: 1200px;
+			perspective: 1200px;
+		}
+		.swiper-wrapper {
+			-webkit-transform-style: preserve-3d;
+			-moz-transform-style: preserve-3d;
+			-ms-transform-style: preserve-3d;
+			transform-style: preserve-3d;
+		}
+		.swiper-slide {
+			position: relative;
+			-webkit-transform-style: preserve-3d;
+			-moz-transform-style: preserve-3d;
+			-ms-transform-style: preserve-3d;
+			transform-style: preserve-3d;
+		}
+		.swiper-slide {
+			//opacity:0;  
+			//-webkit-transition: opacity 4s;
+		}
+		.swiper-slide-active {
+			//opacity: 1;
+		}
+*/
+	</style>
+
+	
+	<div class="overlay-mask"></div>
+	<div class="fixed-item"><div class="logo"></div></div>
+	<div class="parallax-cont swiper-container">
+		<div class="swiper-wrapper">
+
+			<div class="parallax-page page-1 swiper-slide" id="page-1">
+				<div class="slides-holder">
+					<div class="parallax-item slide-1 text-slide">
+						<div class="logo"></div>
+					</div>
+					<div class="parallax-item slide-2 text-slide">
+						<div class="title-text">
+							<span class="normal-txt">An app that</span> 
+							<span class="mildblue highlight-txt">empowers you!</span>
+						</div>
+					</div>
+					<div class="parallax-item slide-3 text-slide">
+						<div class="desc-text">This app let’s us to create multiple users with password protection.<br>It is designed to restrict access; the admin decides which group /user can use which features/apps.
+						</div>
+					</div>
+					<div class="tablet-img-holder visible-change">
+						<img src="../resources/slices/tablet.png" class="parallax-img tablet-img parallax-item slide-4 img-slide" />
+						<img src="../resources/slices/mobile.png" class="parallax-img mobile-img parallax-item slide-5 img-slide" />
+					</div>
+				</div>
+				<div class="cloud-img-holder visible-fixed">
+					<img src="../resources/slices/cloud_small.png" class="parallax-img cloud-1-img parallax-item slide-4 img-slide" />
+					<img src="../resources/slices/cloud_med.png" class="parallax-img cloud-2-img parallax-item slide-4 img-slide" />
+					<img src="../resources/slices/globe.png" class="parallax-img globe-img parallax-item slide-4 img-slide" />
+					<img src="../resources/slices/cloud_big.png" class="parallax-img cloud-3-img parallax-item slide-4 img-slide" />
+				</div>
+			</div>
+
+
+			<div class="parallax-page page-2 swiper-slide" id="page-2">
+				<div class="slides-holder">
+					<div class="parallax-item slide-1 text-slide">
+						<div class="logo"></div>
+					</div>
+					<div class="parallax-item slide-2 text-slide">
+						<div class="title-text">
+							<span class="mildblue highlight-txt">Personalization with</span>
+							<span class="normal-txt">parental control</span> 
+						</div>
+					</div>
+					<div class="parallax-item slide-3 text-slide">
+						<div class="desc-text">Administrators have the privilege of personalizing their device by creating multiple password-protected user <br>accounts and time limits for each of them. This handy app allows us to tackle day to day activities.<br> Parental control cannot get any more fun!!.
+						</div>
+					</div>
+
+				</div>
+				<div class="cloud-img-holder visible-fixed">
+					<img src="../resources/slices/2_cloud2.png" class="parallax-img page2-cloud1-img parallax-item slide-4 img-slide" />
+					<img src="../resources/slices/2_cloud1.png" class="parallax-img page2-cloud2-img parallax-item slide-4 img-slide" />
+					<img src="../resources/slices/2_buil.png" class="parallax-img page2-home-img parallax-item slide-4 img-slide" />
+				</div>
+			</div>
+
+
+
+			<div class="parallax-page page-3 swiper-slide" id="page-3">
+				<div class="slides-holder">
+					<div class="parallax-item slide-1 text-slide visible-change">
+						<div class="logo"></div>
+					</div>
+					<div class="parallax-item slide-2 text-slide visible-change">
+						<div class="title-text man-item">
+							<span class="normal-txt">An app that</span> 
+							<span class="mildblue highlight-txt">let's you Personalise...</span>
+						</div>
+						<div class="title-text women-item">
+							<span class="normal-txt">Her apps,</span> 
+							<span class="mildblue highlight-txt"> Her space!</span>
+						</div>
+						<div class="title-text kid-item">
+							<span class="normal-txt">My Child,</span> 
+							<span class="mildblue highlight-txt">I care</span>
+						</div>
+					</div>
+					<div class="parallax-item slide-3 text-slide visible-change">
+						<div class="desc-text man-item">I can check my work emails, look up contacts without worrying about my privacy.This was done possible because I created seperate logins for my entire family.
+						</div>
+						<div class="desc-text women-item">She can have her own personalised app and browse her favourite stuffs.And, Now she does not have to worry about my annoying mail notifications popping up all the time.
+						</div>
+						<div class="desc-text kid-item">Want to tackle nomophobia? This app lets me limit the duration of the device usage and also restricts the usage of certain applications. Also, allows Wifi to be disabled. Subtly,Parental control in a more friendly manner.
+						</div>
+					</div>
+					<div class="main-img-slide visible-change">
+						<img src="../resources/slices/4_blurb.png" class="parallax-img bubble-img bubble-man parallax-item slide-5 img-slide man-item" />
+						<img src="../resources/slices/4_blurb_1.png" class="parallax-img bubble-img bubble-women parallax-item slide-5 img-slide women-item" />
+						<img src="../resources/slices/4_blurb_2.png" class="parallax-img bubble-img bubble-kid parallax-item slide-5 img-slide kid-item" />
+						<img src="../resources/slices/4_couch.png" class="parallax-img couch-img parallax-item slide-5 img-slide" />
+						<img src="../resources/slices/4_man.png" class="parallax-img  man-item man-img person-img parallax-item slide-5 img-slide" />
+						<img src="../resources/slices/4_women.png" class="parallax-img women-item women-img person-img parallax-item slide-5 img-slide" />
+						<img src="../resources/slices/4_kid.png" class="parallax-img kid-item kid-img person-img parallax-item slide-5 img-slide" />
+					</div>
+				</div>
+				<div class="bottom-img-holder visible-fixed">
+					<img src="../resources/slices/4_floor.png" class="parallax-img floor_4-img parallax-item slide-4 img-slide" />
+				</div>
+			</div>
+
+
+			<div class="parallax-page page-6 swiper-slide" id="page-6">
+				<div class="slides-holder">
+					<div class="parallax-item slide-1 text-slide">
+						<div class="logo"></div>
+					</div>
+					<div class="parallax-item slide-2 text-slide">
+						<div class="title-text">
+							<span class="normal-txt">My office</span> 
+							<span class="mildblue highlight-txt">My space</span>
+						</div>
+					</div>
+					<div class="parallax-item slide-3 text-slide">
+						<div class="desc-text">This lets me share my tablet with my colleagues and they can work on their personalized logins
+						</div>
+					</div>
+					<div class="main-img-slide  visible-change">
+						<img src="../resources/slices/3_man.png" class="parallax-img man_3 parallax-item slide-4 img-slide" />
+						<img src="../resources/slices/3_bubble_2.png" class="parallax-img bubble-img bubble_2 bubble-b parallax-item slide-5 img-slide" />
+						<img src="../resources/slices/3_bubble_1.png" class="parallax-img bubble-img bubble_1 bubble-a parallax-item slide-5 img-slide" />
+						<!--						<img src="../resources/slices/3_bg.png" class="parallax-img bg-img-3 3_bg parallax-item slide-4 img-slide" />-->
+					</div>
+				</div>
+			</div>
+
+
+			<div class="parallax-page page-7 swiper-slide" id="page-7">
+				<div class="slides-holder">
+					<div class="parallax-item slide-1 text-slide">
+						<div class="logo"></div>
+					</div>
+					<div class="parallax-item slide-2 text-slide">
+						<div class="title-text">
+							<span class="normal-txt">Tablet,</span> 
+							<span class="mildblue highlight-txt">next Kiosks!</span>
+						</div>
+					</div>
+					<div class="parallax-item slide-3 text-slide">
+						<div class="desc-text">This app lets enables us to restrict access and/or functionality of Tablets. Thus, allowing Kiosk's admin to expose only those apps that user needs to interact.
+						</div>
+					</div>
+					<div class="main-img-slide  visible-change">
+
+						<img src="../resources/slices/5_kiosk.png" class="parallax-img kiosk_5 parallax-item slide-4 img-slide" />
+						<img src="../resources/slices/5_girl.png" class="parallax-img girl_5 parallax-item slide-4 img-slide" />
+						<img src="../resources/slices/5_blurb.png" class="parallax-img blurp_5 bubble-img parallax-item slide-5 img-slide" />
+						<!--						<img src="../resources/slices/3_bg.png" class="parallax-img bg-img-3 3_bg parallax-item slide-4 img-slide" />-->
+					</div>
+				</div>
+			</div>
+
+
+			<div class="parallax-page page-8 swiper-slide" id="page-8">
+				<div class="slides-holder">
+					<div class="parallax-item slide-1 text-slide">
+						<div class="logo"></div>
+					</div>
+					<div class="parallax-item slide-2 text-slide">
+						<div class="title-text">
+							<span class="normal-txt">Next</span> 
+							<span class="mildblue highlight-txt">scholastic revolution!</span>
+						</div>
+					</div>
+					<div class="parallax-item slide-3 text-slide">
+						<div class="desc-text">An integration of technology with education makes learning more fun.Tablets can be configured to perform various activities.
+						</div>
+					</div>
+					<div class="main-img-slide  visible-change">
+						<img src="../resources/slices/6_boy.png" class="parallax-img boy_6 parallax-item slide-4 img-slide" />
+						<img src="../resources/slices/6_blurb.png" class="parallax-img blurp_6 bubble-img parallax-item slide-5 img-slide" />
+						<!--						<img src="../resources/slices/3_bg.png" class="parallax-img bg-img-3 3_bg parallax-item slide-4 img-slide" />-->
+					</div>
+				</div>
+			</div>
+			<div class="parallax-page page-9 swiper-slide page-final" id="page-9">
+				<div class="slides-holder slides-holder-static">
+					<div class="parallax-item slide-1 text-slide">
+						<div class="logo"></div>
+					</div>
+					<div class="parallax-item slide-2 text-slide">
+						<div class="title-text">
+							<span class="mildblue highlight-txt">Smart becomes</span>
+							<span class="normal-txt white">Smarter</span> 
+						</div>
+					</div>
+					<div class="parallax-item slide-3 text-slide">
+						<div class="desc-text">These are some of our ingenious thoughts to where "personalization" comes in handy.Thoughts are perennial and helps us empower you.
+						</div>
+					</div>
+					<div>
+						<a href="#" class="g-store"></a>
+					</div>
+					<div class="footer-content">
+						<a href="#" class="i-logo"></a>
+						<div class="copy-text">Copyright &copy; 2013 Imaginea Technologies Inc. All Rights Reserved. Imaginea is a trademark of Imaginea Technologies Inc. All other trademarks belong to their respective owners.
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+		<div class="pagination"></div>
+	</div>
+
+</body>
+<script>
+</script>
+
+</html>
+
+
